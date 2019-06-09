@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "server": "cd dist && http-server -p 28181"
+    "server": "cd dist/pwa/ && http-server -p 28181"
   },
   "private": true,
   "dependencies": {
