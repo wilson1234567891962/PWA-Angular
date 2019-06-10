@@ -3,7 +3,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {AngularFireAuth} from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import {BehaviorSubject} from 'rxjs';
-import { take } from 'rxjs/operators'
+import 'rxjs/add/operator/take';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,6 @@ export class MessagingService {
 
   constructor(private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
   }
-
 
   updateToken(token) {
     this.afAuth.authState.take(1).subscribe(user => {
