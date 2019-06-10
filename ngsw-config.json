@@ -28,16 +28,15 @@
   ],
   "dataGroups": [
     {
-      "name": "RedditAPI",
+      "name": "FirebaseAPI",
       "urls": [
-        "https://reddit.com/r/pics.json",
-        "https://reddit.com/r/**"
+        "https://platzi-notas-f2c57.firebaseio.com"
       ],
       "cacheConfig": {
-        "strategy": "performance",
-        "maxAge": "1d",
+        "strategy": "freshness",
+        "maxAge": "2h",
         "maxSize": 100,
-        "timeout": "3s"
+        "timeout": "5s"
       }
     }
   ]
