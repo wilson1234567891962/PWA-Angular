@@ -11,10 +11,10 @@ import {NotesService} from './services/notes.service';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  records: any = [];
   note: any = {};
+  notes: any = [];
 
-  constructor(private swUpdate: SwUpdate, private httpClient: HttpClient, public snackBar: MatSnackBar, public notesService: NotesService) {
+  constructor(private swUpdate: SwUpdate, public snackBar: MatSnackBar, public notesService: NotesService) {
     this.notesService.getNotes().valueChanges()
       .subscribe((response) => {
         console.log(response);
@@ -33,8 +33,9 @@ export class AppComponent implements OnInit {
   }
 
   saveNote(): void {
-    this.note.id = Date.now();
-    console.log(this.note);
+    if (!this.note.id) {
+      this.note.id = Date.now();
+    }
     this.notesService.createNote(this.note).then(() => {
       this.note = {};
       this.openSnackBar('Nota Guardada con éxito', null);
@@ -45,5 +46,26 @@ export class AppComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  selectNote(note): void {
+    this.note = JSON.parse(JSON.stringify(note));
+  }
+
+  eliminarNota(nota) {
+    const rsp = confirm('Confirme la eliminación de ' + nota.title);
+    if (rsp) {
+      this.notesService.deleteNote(nota)
+        .then(() => {
+          this.limpiarNota();
+          this.snackBar.open('Nota eliminada.', null, {
+            duration: 2000
+          });
+        });
+    }
+  }
+
+  limpiarNota() {
+    this.nota = {};
   }
 }

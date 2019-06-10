@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AngularFireDatabase} from "@angular/fire/database";
+import {AngularFireDatabase} from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,7 @@ export class NotesService {
   }
 
   public deleteNote(note) {
+    console.log(note.id);
     return this.angularFireDatabase.database.ref('/notes/' + note.id).remove();
   }
 }
