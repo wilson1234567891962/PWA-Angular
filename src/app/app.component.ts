@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
       this.note = {};
       this.openSnackBar('Nota Guardada con éxito', null);
     });
+    this.nota = {};
   }
 
   openSnackBar(message: string, action: string) {
