@@ -3,6 +3,7 @@ import {SwUpdate} from '@angular/service-worker';
 import {HttpClient} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {NotesService} from './services/notes.service';
+import {AuthService} from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,9 @@ export class AppComponent implements OnInit {
   note: any = {};
   notes: any = [];
 
-  constructor(private swUpdate: SwUpdate, public snackBar: MatSnackBar, public notesService: NotesService) {
+  constructor(
+    private authService: AuthService,
+    private swUpdate: SwUpdate, public snackBar: MatSnackBar, public notesService: NotesService) {
     this.notesService.getNotes().valueChanges()
       .subscribe((response) => {
         console.log(response);
@@ -40,7 +43,6 @@ export class AppComponent implements OnInit {
       this.note = {};
       this.openSnackBar('Nota Guardada con éxito', null);
     });
-    this.nota = {};
   }
 
   openSnackBar(message: string, action: string) {
@@ -67,6 +69,10 @@ export class AppComponent implements OnInit {
   }
 
   limpiarNota() {
-    this.nota = {};
+    this.note = {};
+  }
+
+  login() {
+    this.authService.loginWithFacebook();
   }
 }

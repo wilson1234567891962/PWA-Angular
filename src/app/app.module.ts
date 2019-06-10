@@ -21,6 +21,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {NotesService} from './services/notes.service';
+import {AuthService} from './services/auth.service';
 
 const fireBase: any = {
   apiKey: 'AIzaSyDuKeOxLD3kAIJYqHVeYDwlhvlul4y0gjM',
@@ -52,7 +53,7 @@ const fireBase: any = {
     BrowserAnimationsModule, MatToolbarModule, MatExpansionModule, MatFormFieldModule, MatInputModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
   ],
-  providers: [NotesService],
+  providers: [NotesService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
