@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {SwUpdate} from "@angular/service-worker";
-import {HttpClient} from "@angular/common/http";
-import {MatSnackBar} from "@angular/material";
-import {NotesService} from "./services/notes.service";
+import {SwUpdate} from '@angular/service-worker';
+import {HttpClient} from '@angular/common/http';
+import {MatSnackBar} from '@angular/material';
+import {NotesService} from './services/notes.service';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +15,10 @@ export class AppComponent implements OnInit {
   note: any = {};
 
   constructor(private swUpdate: SwUpdate, private httpClient: HttpClient, public snackBar: MatSnackBar, public notesService: NotesService) {
-    httpClient.get('https://www.reddit.com/r/pics.json')
-      .subscribe((result: any) => {
-        this.records = result.data.children;
+    this.notesService.getNotes().valueChanges()
+      .subscribe((response) => {
+        console.log(response);
+        this.notes = response;
       });
   }
 
