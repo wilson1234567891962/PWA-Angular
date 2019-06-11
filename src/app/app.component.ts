@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material';
 import {NotesService} from './services/notes.service';
 import {AuthService} from './services/auth.service';
+import {MessagingService} from "./services/messaging.service";
+
 
 @Component({
   selector: 'app-root',
@@ -14,10 +16,12 @@ export class AppComponent implements OnInit {
   title = 'app';
   note: any = {};
   notes: any = [];
+  message: any = null;
 
   constructor(
     private authService: AuthService,
-    private swUpdate: SwUpdate, public snackBar: MatSnackBar, public notesService: NotesService) {
+    private swUpdate: SwUpdate, public snackBar: MatSnackBar, public notesService: NotesService,
+    private  pessagingService: MessagingService, private msgService: MessagingService) {
     this.notesService.getNotes().valueChanges()
       .subscribe((response) => {
         console.log(response);
@@ -33,6 +37,15 @@ export class AppComponent implements OnInit {
         }
       });
     }
+    this.msgService.getPermission();
+    this.msgService.receiveMessage();
+    this.message = this.msgService.currentMessage;
+    navigator.serviceWorker.register('../firebase-messaging-sw.js')
+      .then((registration) => {
+        console.log('Registration successful, scope is:', registration.scope);
+      }).catch((err) => {
+      console.log('Service worker registration failed, error:', err);
+    });
   }
 
   saveNote(): void {
